@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Palette Maniguadebaby : noir chaud + or (d'après la maquette) ---- */
+  --color-ink-950: #0b0906;
+  --color-ink-900: #14100a;
+  --color-ink-850: #1b150d;
+  --color-ink-800: #241b11;
+  --color-ink-700: #35291a;
+  --color-ink-600: #4c3b23;
+
+  --color-cream: #faf4e8;
+  --color-cream-dim: #d6c7ae;
+  --color-cream-mute: #a28f73;
+
+  --color-mango-50: #fff9ec;
+  --color-mango-200: #ffe7b0;
+  --color-mango-400: #f5c64b;
+  --color-mango-500: #f2b705;
+  --color-mango-600: #d99b00;
+  --color-mango-700: #9a7100;
+
+  --color-gold-300: #ffde93;
+  --color-gold-400: #f5c542;
+  --color-gold-500: #e3a81c;
+
+  --color-baobab-400: #2fbf71;
+  --color-baobab-500: #1fa85e;
+  --color-baobab-600: #148046;
+
+  --font-display: "Montserrat", "Bricolage Grotesque", ui-sans-serif, sans-serif;
+  --font-heading: "Bricolage Grotesque", "Montserrat", ui-sans-serif, sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-marquee-slow: marquee 70s linear infinite;
+  --animate-kenburns: kenburns 22s ease-in-out infinite alternate;
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-spin-slow: spin 26s linear infinite;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-pop: pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-pulse-glow: pulse-glow 4.5s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes kenburns {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to { transform: scale(1.18) translate3d(-1.5%, -2%, 0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes shimmer {
+  from { background-position: -180% 0; }
+  to { background-position: 180% 0; }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.9) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.65; transform: scale(1.06); }
+}
+
+@keyframes eqbar {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    font-feature-settings: "ss01", "cv01";
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-mango-500);
+    color: #1a1200;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #0f0b06; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #6b5320, #2b2112);
+    border-radius: 99px;
+    border: 2px solid #0f0b06;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--color-mango-500), #6b5320);
+  }
+
+  input, textarea, select { color-scheme: dark; }
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
+  }
+
+  /* Voile texturé sur les fonds noirs */
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.45;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  }
+
+  /* Trame dorée en filigrane */
+  .wax-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(245, 198, 75, 0.3) 1px, transparent 0),
+      repeating-linear-gradient(45deg, rgba(245, 198, 75, 0.05) 0 2px, transparent 2px 14px);
+    background-size: 22px 22px, auto;
+  }
+
+  /* Titre doré dégradé (mot-symbole MANIGUADEBABY) */
+  .gold-text {
+    background: linear-gradient(180deg, #ffe9b3 0%, #f5c542 42%, #d99b00 72%, #f2d27a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 18px 60px rgba(242, 183, 5, 0.18);
+  }
+
+  .text-stroke {
+    -webkit-text-stroke: 1.5px rgba(250, 244, 232, 0.3);
+    color: transparent;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible { opacity: 1; transform: none; }
+
+  .eq-bar {
+    transform-origin: bottom;
+    animation: eqbar 0.9s ease-in-out infinite;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { scrollbar-width: none; }
+
+  .glass {
+    background: color-mix(in oklab, var(--color-ink-900) 82%, transparent);
+    backdrop-filter: blur(18px) saturate(130%);
+  }
+
+  /* Halo doré derrière le mot-symbole */
+  .gold-halo {
+    background: radial-gradient(circle at 50% 35%, rgba(242, 183, 5, 0.28) 0%, rgba(242, 183, 5, 0.08) 38%, transparent 72%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-marquee, .animate-kenburns, .animate-float, .eq-bar, .animate-pulse-glow {
+    animation: none !important;
+  }
+}
